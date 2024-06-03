@@ -1,0 +1,4 @@
+affdcd=false
+affddffa=true
+abcddcba=true
+madam=true
