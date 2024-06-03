@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.srirama.palindrome.validation;
 
 import org.springframework.stereotype.Component;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * and will be autowired to the lost of validators in the validationService
  */
 @Component
-public class NoSpaceAndNumberValidator implements InputValidator{
+public class NoSpaceAndNumberValidator implements InputValidator {
 
     /**
      * @param input

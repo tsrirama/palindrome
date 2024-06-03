@@ -1,14 +1,21 @@
-package com.example.demo;
+package com.srirama.palindrome.service;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.srirama.palindrome.data.AsyncDataStoreService;
+import com.srirama.palindrome.data.DataStore;
+import com.srirama.palindrome.validation.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.srirama.palindrome.model.PalindromeRequest;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.annotation.PostConstruct;
 
@@ -41,6 +48,24 @@ public class Controller {
 
 	// This map is used as in memory cache
 	static Map<String, Boolean> map;
+
+	@PostMapping("/check_palindrome")
+	public ResponseEntity<?> checkPalindrome(@Validated @RequestBody PalindromeRequest request)throws IOException {
+		if(null==map) {
+			//if there is no cache yet, it may be initiated
+			map = new HashMap<String, Boolean>();
+		}
+		//Check if there was already an entry in cache for the user.
+		if (map.containsKey(request.getValue())) {
+			return ResponseEntity.ok(new PalindromeResponse(request.getUsername(), request.getValue(), map.get(request.getValue())));
+		}
+		boolean isPalindrome = palindromeService.isPalindrome(request.getValue());
+		//update the cache
+		map.put(request.getValue(), isPalindrome);
+
+		asyncService.saveToDataStore(request.getValue(), isPalindrome);
+		return ResponseEntity.ok(new PalindromeResponse(request.getUsername(), request.getValue(), isPalindrome));
+	}
 
 	@GetMapping("/check/{userName}/{value}")
 	public boolean checkPalindrome(@PathVariable String userName, @PathVariable String value) throws IOException {
@@ -80,6 +105,32 @@ public class Controller {
 	@PostConstruct
 	private void loadCacheFromFile() {
 		map = dataStore.getDataForCache();
+	}
+
+	public static class PalindromeResponse {
+		private String username;
+		private String value;
+		private boolean isPalindrome;
+
+		public PalindromeResponse(String username, String value, boolean isPalindrome) {
+			this.username = username;
+			this.value = value;
+			this.isPalindrome = isPalindrome;
+		}
+
+		public String getUsername() {
+			return username;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		public boolean isPalindrome() {
+			return isPalindrome;
+		}
+
+
 	}
 
 }

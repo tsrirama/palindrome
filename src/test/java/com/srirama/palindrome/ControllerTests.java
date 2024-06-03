@@ -1,16 +1,18 @@
-package com.example.demo;
+package com.srirama.palindrome;
 
 import java.io.IOException;
 
+import com.srirama.palindrome.data.AsyncDataStoreService;
+import com.srirama.palindrome.service.Controller;
+import com.srirama.palindrome.service.PalindromeService;
+import com.srirama.palindrome.validation.ValidationException;
+import com.srirama.palindrome.validation.ValidationService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @SpringBootTest
 public class ControllerTests {
@@ -20,6 +22,8 @@ public class ControllerTests {
 	AsyncDataStoreService service;
 	@Mock
 	PalindromeService palindromeService;
+	@Mock
+	ValidationService validationService;
 
 	@Test
 	void checkPolindromeTest() throws IOException {

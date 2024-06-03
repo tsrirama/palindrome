@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.srirama.palindrome.validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

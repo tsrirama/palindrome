@@ -1,7 +1,8 @@
-package com.example.demo;
+package com.srirama.palindrome;
 
 import java.io.IOException;
 
+import com.srirama.palindrome.service.PalindromeService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ServiceTests {
 
 	@InjectMocks
-	AsyncDataStoreService service;
+	PalindromeService service;
 
 	@Test
 	void checkPolindromeTest() throws IOException {

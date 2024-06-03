@@ -5,7 +5,7 @@ Palindrome Service
 
 How to Run
 
-- Please run the Main class com.example.demo.MyPalindromeApp to start the spring boot application
+- Please run the Main class com.srirama.palindrome.MyPalindromeApp to start the spring boot application
 
 Send a Request
 

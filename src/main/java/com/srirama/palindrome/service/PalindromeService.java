@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.srirama.palindrome.service;
 
 import org.springframework.stereotype.Service;
 

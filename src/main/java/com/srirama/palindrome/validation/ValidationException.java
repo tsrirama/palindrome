@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.srirama.palindrome.validation;
 
 /**
  * Custom runtime exception to help with a customised response for validation failure
