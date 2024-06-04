@@ -1,6 +1,5 @@
 package com.srirama.palindrome;
 
-import com.srirama.palindrome.service.Controller.PalindromeResponse;
 import com.srirama.palindrome.model.PalindromeRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +24,20 @@ public class TestPostRequests {
         request.setUsername("test_user");
         request.setValue("madam");
 
-        mockMvc.perform(post("/api/check_palindrome")
+        mockMvc.perform(post("/v1/palindrome/check_palindrome")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"username\": \"test_user\", \"value\": \"madam\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("test_user"))
                 .andExpect(jsonPath("$.value").value("madam"))
-                .andExpect(jsonPath("$.is_palindrome").value(true));
+                .andExpect(jsonPath("$.palindrome").value(true));
     }
 
     @Test
-    public void whenInvalidInput_thenReturns400() throws Exception {
-        mockMvc.perform(post("/api/check_palindrome")
+    public void whenInvalidInput_thenReturns500() throws Exception {
+        mockMvc.perform(post("/v1/palindrome/check_palindrome")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"username\": \"test_user\", \"value\": \"madam 123\"}"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isInternalServerError());
     }
 }

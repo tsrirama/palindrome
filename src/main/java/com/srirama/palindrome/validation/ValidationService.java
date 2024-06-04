@@ -10,8 +10,13 @@ import java.util.List;
  */
 @Service
 public class ValidationService {
-    @Autowired
-    List<InputValidator> validatorList;
+
+    private final List<InputValidator> validatorList;
+
+    public ValidationService(List<InputValidator> validatorList) {
+        this.validatorList = validatorList;
+    }
+
     public void validate(String input) {
         validatorList.forEach(inputValidator -> inputValidator.validate(input));
     }

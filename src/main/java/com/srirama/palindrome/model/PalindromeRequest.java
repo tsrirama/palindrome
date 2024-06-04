@@ -1,7 +1,7 @@
 package com.srirama.palindrome.model;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 public class PalindromeRequest {
     @NotEmpty(message = "Username cannot be empty")

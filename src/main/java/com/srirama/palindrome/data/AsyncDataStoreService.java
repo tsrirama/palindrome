@@ -2,6 +2,7 @@ package com.srirama.palindrome.data;
 
 import java.io.IOException;
 
+import com.srirama.palindrome.entities.Palindrome;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,6 @@ public class AsyncDataStoreService {
 	 */
 	@Async
 	public void saveToDataStore(String value, boolean isPalindrome) throws IOException {	
-		dataStore.SaveToDataStore(value, isPalindrome);
+		dataStore.save(new Palindrome(value, isPalindrome));
 	}
 }
